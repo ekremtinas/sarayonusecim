@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mustafa Tınas",
+  title: "Necati Koç - Seçim Sonuçları",
   description: "Seçim sonuçları",
 };
 
