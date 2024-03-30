@@ -1,16 +1,16 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore,collection,getDocs,addDoc,doc,updateDoc} from "@firebase/firestore"
 import { deleteDoc } from "firebase/firestore";
-
+import { useRouter } from 'next/router';
 
 
 export default function Home() {
-
-  const path = !!document ? document?.location?.href : !!window ? window?.location?.href : "";
+  const router = useRouter();
+  const path = router.pathname;
   console.log(path)
   const [isAdmin, setIsAdmin] = useState(path?.includes("key=Mt1453.!"));
   console.log(isAdmin)
