@@ -108,6 +108,7 @@ useEffect(() => {
         
         <br></br>
           <div style={{color:"red",fontWeight:"bold"}}>!!!Sandık görevlileri harici lütfen oy sayısını değiştirmeyiniz.</div>
+          <div style={{color:"red",fontWeight:"bold"}}>!!!YÖNETİCİLER DIŞINDA LÜTFEN EKLEME SİLME YAPMAYINIZ !!!.</div>
         <br></br>
         <br></br>
      
@@ -117,7 +118,7 @@ useEffect(() => {
               
               {
                 bolgeler.map((bolge:any) => (
-                  <div key={bolge.id}>
+                  <div style={{marginTop:40}} key={bolge.id}>
                     <h2 style={{textAlign:"center",fontSize:20}}><b>{bolge.bolgeAdi} - {bolge.sorumlu}</b></h2
                     >
                     <br></br>
@@ -319,7 +320,7 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
 
 
   return (
-    <div>
+    <div >
        <span style={{textAlign:"center",fontSize:20 ,marginLeft:10 , paddingRight:10, borderRight:"1px solid #000"}}><b>
           Refah Toplam:{ 
           sandiklar.reduce((acc:any, sandik:any) => acc + Number(sandik.refahOySayisi), 0)
@@ -351,9 +352,14 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
         <tbody>
           {sandiklar.map((sandik:any) => (
             <tr key={sandik.id}>
-              <td>{sandik.sorumlu}</td>
-              <td>{sandik.sandikNo}</td>
               <td>
+              <label className="input-label">Sorumlu:</label>
+                {sandik.sorumlu}</td>
+              <td>
+              <label className="input-label">Sandık No:</label>
+                {sandik.sandikNo}</td>
+              <td>
+                <label className="input-label">Refah Oy Sayısı:</label>
                 <input
                   type="number"
                   value={sandik.refahOySayisi}
@@ -361,6 +367,7 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
                 />
               </td>
               <td>
+              <label className="input-label">Akp Oy Sayısı:</label>
                 <input
                   type="number"
                   value={sandik.akpOySayisi}
@@ -368,6 +375,7 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
                 />
               </td>
               <td>
+              <label className="input-label">Bağımsız Oy Sayısı:</label>
                 <input
                   type="number"
                   value={sandik.bagimsizOySayisi}
@@ -375,6 +383,7 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
                 />
               </td>
               <td>
+              <label className="input-label">Diğer Oy Sayısı:</label>
                 <input
                   type="number"
                   value={sandik.digerOySayisi}
@@ -382,27 +391,33 @@ const digerUpdate =async(id:any,oySayisi:any)=>{
                 />
               </td>
               <td>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => sandikSil(sandik.id)}>Sil</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => sandikSil(sandik.id)}>Sil</button>
               </td>
             </tr>
           ))}
            <tr hidden={false}>
             <td   >
+            <label className="input-label">Sorumlu:</label>
               <input type="text" value={sorumlu} onChange={(e:any)=>setSorumlu(String(e.target.value))} placeholder="Sorumlu" />
               </td>
               <td>
+              <label className="input-label">Sandık No:</label>
               <input type="text" value={sandikNo} onChange={(e:any)=>setSandikNo(String(e.target.value))}   placeholder="Sandık No" />
               </td>
               <td>
+              <label className="input-label">Refah Oy Sayısı:</label>
               <input type="number"  value={refahOySayisi} onChange={(e:any)=>setRefahOySayisi(Number(e.target.value))} placeholder="Refah Oy Sayısı" />
               </td>
               <td>
+              <label className="input-label">Akp Oy Sayısı:</label>
               <input type="number"  value={akpOySayisi} onChange={(e:any)=>setAkpOySayisi(Number(e.target.value))} placeholder="Akp Oy Sayısı" />
               </td>
               <td>
+              <label className="input-label">Bağımsız Oy Sayısı:</label>
               <input type="number"  value={bagimsizOySayisi} onChange={(e:any)=>setBagimsizOySayisi(Number(e.target.value))} placeholder="Bagimsiz Oy Sayısı" />
               </td>
               <td>
+              <label className="input-label">Diğer Oy Sayısı:</label>
               <input type="number"  value={digerOySayisi} onChange={(e:any)=>setDigerOySayisi(Number(e.target.value))} placeholder="Diger Oy Sayısı" />
               </td>
               <td>

@@ -57,12 +57,14 @@ const Bolge = ({onSetBolgeler}:{onSetBolgeler:any}) => {
          
         <ul>
             {bolge.map((item:any) => (
-                <li key={item.id}>{item.sorumlu} - {item.bolgeAdi}    <button style={{marginLeft:20}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={()=>bolgeSil(item.id)}>Sil</button></li>
+                <li style={{marginTop:5}}  key={item.id}> <button  style={{marginLeft:20}} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={()=>bolgeSil(item.id)}>Sil</button>   {item.sorumlu} - {item.bolgeAdi}   </li>
             ))}
         </ul>
-        <input type="text" value={sorumlu} onChange={(e)=>setSorumlu(e.target.value)} placeholder="Sorumlu" />
-        <input style={{marginLeft:5}} type="text" value={bolgeAdi} onChange={(e)=>setBolgeAdi(e.target.value)} placeholder="Bölge Adı" />
-        <button style={{marginLeft:20}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={bolgeEkle}>Ekle</button>
+        <br></br>
+        <br></br>
+        <input   style={{marginLeft:5,marginTop:5}} type="text" value={sorumlu} onChange={(e)=>setSorumlu(e.target.value)} placeholder="Sorumlu" />
+        <input  style={{marginLeft:5,marginTop:5}} type="text" value={bolgeAdi} onChange={(e)=>setBolgeAdi(e.target.value)} placeholder="Bölge Adı" />
+        <div style={{textAlign:"center"}}><button   style={{marginTop:5}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={bolgeEkle}>Ekle</button></div>
         <br></br>
         <br></br>
         <br></br>

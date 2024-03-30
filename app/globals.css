@@ -32,7 +32,9 @@ body {
   }
 }
 
-
+.input-label{
+  display: none;
+}
 table {
   border-collapse: collapse;
   width: 70%;
@@ -53,7 +55,14 @@ td {
   table {
     width: 100%;
   }
+  
    
+  .input-label{
+    display: block;
+  }
+  thead {
+    display: none;
+  }
   th, td {
     display: block;
   }
