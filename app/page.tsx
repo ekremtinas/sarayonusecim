@@ -34,13 +34,18 @@ export default function Home() {
     list = list.sort((a:any, b:any) => a.sandikNo - b.sandikNo);
     setSandiklar(list)
   }
+const [render, setRender] = useState("0");
 
   useEffect(() => {
     setInterval(() => {
     getUsersData()
-    }, 1000);
+    }, 60000);
 }, [])
 
+useEffect(() => {
+  getUsersData()
+}
+, [render]);
 
   const [sorumlu, setSorumlu] = useState("");
   const [sandikNo, setSandikNo] = useState("");
@@ -54,6 +59,7 @@ const update =async(id:any,oySayisi:any)=>{
   console.log("Updated the Data on System")
   await updateDoc(sandikDoc, newReg)
   console.log("Updated the Data on the Server")
+  setRender(Math.random().toString());
 }
 
   const oySayisiGuncelle = (id:any, oySayisi:any) => {
@@ -127,7 +133,7 @@ const update =async(id:any,oySayisi:any)=>{
                 
               </td>
               <td>
-              <button hidden={true} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+              <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                  sandikSil(sandik.id);
                 }}>Sil</button>
                 <br></br>
