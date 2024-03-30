@@ -11,17 +11,6 @@ export default function Home() {
   const [isAdmin, setIsAdmin] = useState(true);
   console.log(isAdmin)
 
-  //!Eski Firebase Config
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyDQbf3tbDFUS6nvc84o116PN9MIWe4r7Tk",
-  //   authDomain: "muhtarliksecim.firebaseapp.com",
-  //   projectId: "muhtarliksecim",
-  //   storageBucket: "muhtarliksecim.appspot.com",
-  //   messagingSenderId: "774918961056",
-  //   appId: "1:774918961056:web:e4ecb45d59e46a1bf2d6c5",
-  //   measurementId: "G-F90C942RRY"
-  // };
-
  //!Yeni Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyAKIup1iFsmlX_ocyVsfeRu9AaTrLzgMgU",
@@ -37,9 +26,7 @@ export default function Home() {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
- // const CollectionRef = collection(db, "muhtarliksecim")
-  const CollectionRef = collection(db, "muhtarliksecimi")
+  const CollectionRef = collection(db, "sarayonusecim")
 
 
 
@@ -68,7 +55,7 @@ useEffect(() => {
   const [sandiklar, setSandiklar] = useState<any>([]);
 
 const update =async(id:any,oySayisi:any)=>{
-  const sandikDoc = doc(db, "muhtarliksecimi", id);
+  const sandikDoc = doc(db, "sandiklar", id);
   console.log(sandikDoc)
   const newReg = { oySayisi}
   console.log("Updated the Data on System")
@@ -104,7 +91,7 @@ const update =async(id:any,oySayisi:any)=>{
   }
   const sandikSil =async(id:any)=>{
     setSandiklar(sandiklar.filter((s:any) => s.id !==id));
-    const sandikDoc = doc(db, "muhtarliksecimi", id);
+    const sandikDoc = doc(db, "sandiklar", id);
     console.log(sandikDoc)
     await deleteDoc(sandikDoc)
     console.log("Updated the Data on the Server")
@@ -165,7 +152,7 @@ const update =async(id:any,oySayisi:any)=>{
                 
               </td>
               <td>
-              <button hidden={true} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+              <button hidden={false} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                  sandikSil(sandik.id);
                 }}>Sil</button>
                 <br></br>
@@ -173,7 +160,7 @@ const update =async(id:any,oySayisi:any)=>{
               </td>
             </tr>
           ))}
-          <tr hidden={true}>
+          <tr hidden={false}>
             <td   >
               <input type="text" value={sorumlu} onChange={(e:any)=>setSorumlu(String(e.target.value))} placeholder="Sorumlu" />
               </td>
