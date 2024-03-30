@@ -135,7 +135,7 @@ useEffect(() => {
 
       <br></br>
       <br></br>
-      Silme ve Güncelle için 05423725116 numaralı telefondan ulaşabilirsiniz.
+      Silme ve Güncelle için 05423725116 (Ekrem Tınas) numaralı telefondan ulaşabilirsiniz.
     </main>
   );
 }
