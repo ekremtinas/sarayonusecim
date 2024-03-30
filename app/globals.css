@@ -31,3 +31,21 @@ body {
     text-wrap: balance;
   }
 }
+
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+}
+tr {
+  border-bottom: 1px solid #ddd;
+}
+th {
+  text-align: left;
+  padding: 8px;
+}
+td {
+  text-align: left;
+  padding: 8px;
+}
+
