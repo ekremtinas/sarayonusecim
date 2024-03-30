@@ -29,8 +29,10 @@ export default function Home() {
 
 
   const getUsersData = async () => {
-    const data = await getDocs(CollectionRef)
-    setSandiklar(data.docs.map((elem:any) => ({ ...elem.data(), id: elem.id })))
+    const data = await getDocs(CollectionRef);
+    let list = data.docs.map((elem:any) => ({ ...elem.data(), id: elem.id }));
+    list = list.sort((a:any, b:any) => a.sandikNo - b.sandikNo);
+    setSandiklar(list)
   }
 
   useEffect(() => {
@@ -94,13 +96,24 @@ const update =async(id:any,oySayisi:any)=>{
         <br></br>
         <h2 style={{textAlign:"center",fontSize:20}}><b>Ladik Mahallesi Seçim Sandık Kayıtları</b></h2>
         <br></br>
+        <h2 style={{textAlign:"center",fontSize:20}}><b>
+          Toplam:{ 
+          sandiklar.reduce((acc:any, sandik:any) => acc + sandik.oySayisi, 0)
+          }</b></h2>
+        <br></br>
+          <div style={{color:"red",fontWeight:"bold"}}>!!!Sandık görevlileri harici lütfen oy sayısını değiştirmeyiniz.</div>
+        <br></br>
+        <br></br>
+        
+
+        <div className="table-container">
         <table>
         <thead>
           <tr>
             <th>Sorumlu</th>
             <th>Sandık No</th>
             <th>Oy Sayısı</th>
-            <th>İşlem</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -110,13 +123,15 @@ const update =async(id:any,oySayisi:any)=>{
               <td>{sandik.sorumlu}</td>
               <td>{sandik.sandikNo}</td>
               <td style={{textAlign:"justify"}}>
-                <input readOnly={!isAdmin} type="number" value={sandik.oySayisi} onChange={e => oySayisiGuncelle(sandik.id, parseInt(e.target.value))} />
+                <input style={{textAlign:"center"}} readOnly={!isAdmin} type="number" value={sandik.oySayisi} onChange={e => oySayisiGuncelle(sandik.id, parseInt(e.target.value))} />
                 
               </td>
               <td>
-              <button hidden={!isAdmin} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+              <button hidden={true} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                  sandikSil(sandik.id);
                 }}>Sil</button>
+                <br></br>
+                <br></br>
               </td>
             </tr>
           ))}
@@ -137,7 +152,11 @@ const update =async(id:any,oySayisi:any)=>{
           </tr>
         </tbody>
       </table>
-      
+      </div>
+
+      <br></br>
+      <br></br>
+      Silme ve Güncelle için 05423725116 numaralı telefondan ulaşabilirsiniz.
     </main>
   );
 }

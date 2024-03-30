@@ -49,3 +49,23 @@ td {
   padding: 8px;
 }
 
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%;
+  }
+   
+  th, td {
+    display: block;
+  }
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+   
+  
+}
+
+
+
