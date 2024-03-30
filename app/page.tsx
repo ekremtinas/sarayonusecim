@@ -2,7 +2,6 @@
 
 import {  useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore,collection,getDocs,addDoc,doc,updateDoc} from "@firebase/firestore"
 import { deleteDoc } from "firebase/firestore";
 
@@ -23,7 +22,6 @@ export default function Home() {
   
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   const db = getFirestore(app);
 
   const CollectionRef = collection(db, "muhtarliksecim")
