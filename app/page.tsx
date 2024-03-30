@@ -10,21 +10,36 @@ export default function Home() {
 
   const [isAdmin, setIsAdmin] = useState(true);
   console.log(isAdmin)
+
+  //!Eski Firebase Config
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyDQbf3tbDFUS6nvc84o116PN9MIWe4r7Tk",
+  //   authDomain: "muhtarliksecim.firebaseapp.com",
+  //   projectId: "muhtarliksecim",
+  //   storageBucket: "muhtarliksecim.appspot.com",
+  //   messagingSenderId: "774918961056",
+  //   appId: "1:774918961056:web:e4ecb45d59e46a1bf2d6c5",
+  //   measurementId: "G-F90C942RRY"
+  // };
+
+ //!Yeni Firebase Config
   const firebaseConfig = {
-    apiKey: "AIzaSyDQbf3tbDFUS6nvc84o116PN9MIWe4r7Tk",
-    authDomain: "muhtarliksecim.firebaseapp.com",
-    projectId: "muhtarliksecim",
-    storageBucket: "muhtarliksecim.appspot.com",
-    messagingSenderId: "774918961056",
-    appId: "1:774918961056:web:e4ecb45d59e46a1bf2d6c5",
-    measurementId: "G-F90C942RRY"
+    apiKey: "AIzaSyAKIup1iFsmlX_ocyVsfeRu9AaTrLzgMgU",
+    authDomain: "muhtarliksecimi.firebaseapp.com",
+    projectId: "muhtarliksecimi",
+    storageBucket: "muhtarliksecimi.appspot.com",
+    messagingSenderId: "187345442967",
+    appId: "1:187345442967:web:a6c99b8d6608d519b9f1d2",
+    measurementId: "G-06TKFJKRM1"
   };
+
   
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  const CollectionRef = collection(db, "muhtarliksecim")
+ // const CollectionRef = collection(db, "muhtarliksecim")
+  const CollectionRef = collection(db, "muhtarliksecimi")
 
 
 
@@ -39,7 +54,7 @@ const [render, setRender] = useState("0");
   useEffect(() => {
     setInterval(() => {
     getUsersData()
-    }, 60000);
+    }, 180000);
 }, [])
 
 useEffect(() => {
@@ -53,7 +68,7 @@ useEffect(() => {
   const [sandiklar, setSandiklar] = useState<any>([]);
 
 const update =async(id:any,oySayisi:any)=>{
-  const sandikDoc = doc(db, "muhtarliksecim", id);
+  const sandikDoc = doc(db, "muhtarliksecimi", id);
   console.log(sandikDoc)
   const newReg = { oySayisi}
   console.log("Updated the Data on System")
@@ -85,16 +100,28 @@ const update =async(id:any,oySayisi:any)=>{
     setSorumlu("");
     setSandikNo("");
     setOySayisi(0);
-    
+    setRender(Math.random().toString());
   }
   const sandikSil =async(id:any)=>{
     setSandiklar(sandiklar.filter((s:any) => s.id !==id));
-    const sandikDoc = doc(db, "muhtarliksecim", id);
+    const sandikDoc = doc(db, "muhtarliksecimi", id);
     console.log(sandikDoc)
     await deleteDoc(sandikDoc)
     console.log("Updated the Data on the Server")
   }
   console.log(sandiklar)
+
+  const [minute, setMinute] = useState(180);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMinute(minute - 1);
+    }, 1000);
+    if (minute === 0) {
+      setMinute(180);
+      getUsersData()
+    }
+    return () => clearInterval(interval);
+  }, [minute]);
   return (
     <main className="flex  flex-col items-center justify-between p-24">
        
@@ -106,11 +133,16 @@ const update =async(id:any,oySayisi:any)=>{
           Toplam:{ 
           sandiklar.reduce((acc:any, sandik:any) => acc + sandik.oySayisi, 0)
           }</b></h2>
+             <div>Anlık sayfa güncellenmesi {minute} saniye sonra yapılacak yada  <button style={{border:"1px solid #000",padding:5,borderRadius:8}} onClick={()=>{
+              setRender(Math.random().toString())
+              setMinute(180);
+              }}> Yenile </button> tuşuyla yenileyin. </div>
+        
         <br></br>
           <div style={{color:"red",fontWeight:"bold"}}>!!!Sandık görevlileri harici lütfen oy sayısını değiştirmeyiniz.</div>
         <br></br>
         <br></br>
-        
+     
 
         <div className="table-container">
         <table>
@@ -133,7 +165,7 @@ const update =async(id:any,oySayisi:any)=>{
                 
               </td>
               <td>
-              <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+              <button hidden={true} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                  sandikSil(sandik.id);
                 }}>Sil</button>
                 <br></br>
@@ -141,8 +173,8 @@ const update =async(id:any,oySayisi:any)=>{
               </td>
             </tr>
           ))}
-          <tr hidden={!isAdmin}>
-            <td  >
+          <tr hidden={true}>
+            <td   >
               <input type="text" value={sorumlu} onChange={(e:any)=>setSorumlu(String(e.target.value))} placeholder="Sorumlu" />
               </td>
               <td>
